@@ -1,0 +1,7 @@
+<form action="{% url 'register' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="hidden" name="next" value="{% url 'home' %}" />
+  <button name="submit" type="submit">Cadastrar-se</button>
+  <a href="{% url 'login' %}">Já possuo uma conta</a>
+</form>

@@ -1,0 +1,21 @@
+{
+  "name": "url-shortner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "python ./manage.py runserver",
+    "dev:css": "npx @tailwindcss/cli -i ./theme/input.css -o ./static/css/output.css --watch",
+    "build:css": "npx @tailwindcss/cli -i ./theme/input.css -o ./static/css/output.css --minify"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "autoprefixer": "^10.6.2",
+    "daisyui": "^5.7.50",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^4.3.5"
+  }
+}

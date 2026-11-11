@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% include "./header.html" %}
+    <ul>
+      {% for url in urls %}
+      <li>
+        <a href="{% url 'acess_url' url.shortned_url%}">{{url}}</a>
+        <a href="{% url 'edit_url' url.shortned_url%}">- EDITAR</a>
+        <a href="{% url 'delete_url' url.shortned_url%}">- APAGAR</a>
+      </li>
+      {%empty%}
+      <li>Nenhuma url adicionada</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

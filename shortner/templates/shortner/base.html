@@ -1,0 +1,36 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Seu Encurtador{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg-base-300">
+        <section class="navbar-start">
+          <a href="{% url 'home' %}" class="text-xl font-bold nav-link">Seu Encurtador</a>
+        </section>
+
+        <section class="navbar-end gap-3">
+          {% if user.is_authenticated %}
+          <a href="{% url 'create_url' %}" class="nav-link">Nova URL</a>
+          {{user.username}}
+          <a href="{% url 'logout' %}" class="nav-link">Sair</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="nav-link">Entrar</a>
+          <a href="{% url 'register' %}" class="nav-link">Cadastrar</a>
+          {% endif %}
+        </section>
+      </nav>
+    </header>
+    <main class="flex justify-center p-5">
+    {%block content%}
+    
+
+    {%endblock content%}
+    </main>
+  </body>
+</html>

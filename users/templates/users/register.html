@@ -1,7 +1,37 @@
-<form action="{% url 'register' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
+{% extends "shortner/base.html" %} {% block content %}
+<form action="{% url 'register' %}" class="card-1" method="post">
+  {% csrf_token %} {% if form.non_field_errors %}
+  <div class="error-message">{{ form.non_field_errors.0 }}</div>
+  {% endif %}
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.username.id_for_label }}" class="text-sm">
+      {{form.username.label}}
+    </label>
+    {{form.username}} {% if form.username.errors %}
+    <p class="mt-1 text-red-500">{{ form.username.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.password1.id_for_label }}" class="text-sm">
+      {{form.password1.label}}
+    </label>
+    {{form.password1}} {% if form.password1.errors %}
+    <p class="mt-1 text-red-500">{{ form.password1.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.password2.id_for_label }}" class="text-sm">
+      {{form.password2.label}}
+    </label>
+    {{form.password2}} {% if form.password2.errors %}
+    <p class="mt-1 text-red-500">{{ form.password2.errors.0 }}</p>
+    {% endif %}
+  </div>
   <input type="hidden" name="next" value="{% url 'home' %}" />
-  <button name="submit" type="submit">Cadastrar-se</button>
-  <a href="{% url 'login' %}">Já possuo uma conta</a>
+  <button name="submit" type="submit" class="btn btn-active btn-success">Cadastrar-se</button>
+  <a href="{% url 'login' %}" class="link link-primary text-center">Já possuo uma conta</a>
 </form>
+{% endblock content%}

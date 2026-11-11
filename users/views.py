@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .forms import CustomRegisterForm as UserCreationForm
 
 # Create your views here.
 def logout(request):

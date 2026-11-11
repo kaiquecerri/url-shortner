@@ -1,22 +1,29 @@
-<!doctype html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    {% include "./header.html" %}
-    <ul>
-      {% for url in urls %}
-      <li>
-        <a href="{% url 'acess_url' url.shortned_url%}">{{url}}</a>
-        <a href="{% url 'edit_url' url.shortned_url%}">- EDITAR</a>
-        <a href="{% url 'delete_url' url.shortned_url%}">- APAGAR</a>
-      </li>
-      {%empty%}
-      <li>Nenhuma url adicionada</li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "shortner/base.html" %} 
+
+{% block content %} 
+
+{% if urls %}
+<div class="flex flex-wrap justify-center gap-4">
+{% for url in urls %}
+  <section class="card-1">
+    <div>
+      <h2 class="text-xl font-bold">{{url.name}}</h2>
+      <p class="text-gray-500">{{url.original_url}}</p>
+    </div>
+    
+    <a href="{% url 'acess_url' url.shortned_url %}" class="link link-primary">{{ request.build_absolute_uri }}acess_url/{{url.shortned_url}}</p>
+    <div class="w-full flex gap-1">
+      <a href="{% url 'edit_url' url.shortned_url %}" class="btn btn-active btn-info flex-1">Editar</a>
+      <a href="{% url 'delete_url' url.shortned_url %}" class="btn btn-active btn-error flex-1">Apagar</a>
+    </div>
+  </section>
+{% endfor %} 
+</div>
+{% else %}
+  <section class="flex flex-col">
+    <h2 class="font-bold text-center">Nenhuma URL adicionada</h2>
+    <a href="{% url 'create_url' %}" class="text-center link link-primary">Encurtar primeira URL</a>
+  </section>
+{% endif%}
+
+{% endblock content %}

@@ -9,8 +9,7 @@
 
     <div class="flex gap-1">
       <a href="{% url 'acess_url' url.shortned_url %}" class="link link-primary"
-        >{{ request.scheme }}://{{ request.get_host }}{% url 'acess_url'
-        url.shortned_url %}</a
+        >{{ request.scheme }}://{{ request.get_host }}{% url 'acess_url' url.shortned_url %}</a
       >
       <button
         type="button"

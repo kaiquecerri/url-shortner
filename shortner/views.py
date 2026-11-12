@@ -54,7 +54,10 @@ def delete_url(request, shortned_url):
 def acess_url(request, shortned_url):
     url = Url.objects.get(shortned_url=shortned_url)
     if url:
-        return HttpResponseRedirect(url.original_url)
+        destination = url.original_url.strip()
+        if not destination.startswith(('http://', 'https://')):
+            destination = f'https://{destination}'
+        return HttpResponseRedirect(destination)
     else:
         raise Http404
 

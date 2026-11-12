@@ -5,12 +5,12 @@ from .forms import CustomLoginForm
 
 urlpatterns = [
     path(
-        'login',
+        'login/',
         auth_views.LoginView.as_view(
             template_name='users/login.html',
             authentication_form=CustomLoginForm),
         name='login'
     ),
-    path('logout', views.logout, name='logout'),
-    path('register', views.register, name='register')
+    path('logout/', views.logout, name='logout'),
+    path('register/', views.register, name='register')
 ]

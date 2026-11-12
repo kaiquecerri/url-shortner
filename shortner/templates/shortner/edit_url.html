@@ -1,6 +1,36 @@
 {% extends "shortner/base.html" %} {% block content %}
-<form action="{% url 'edit_url' url.shortned_url %}" method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <button type="submit">Criar</button>
+<form action="{% url 'edit_url' url.shortned_url %}" class="card-1" method="POST">
+  {% csrf_token %} {% if form.non_field_errors %}
+  <div class="error-message">{{ form.non_field_errors.0 }}</div>
+  {% endif %}
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.name.id_for_label }}" class="text-sm">
+      {{form.name.label}}
+    </label>
+    {{form.name}} {% if form.name.errors %}
+    <p class="mt-1 text-red-500">{{ form.name.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.original_url.id_for_label }}" class="text-sm">
+      {{form.original_url.label}}
+    </label>
+    {{form.original_url}} {% if form.original_url.errors %}
+    <p class="mt-1 text-red-500">{{ form.original_url.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.shortned_url.id_for_label }}" class="text-sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="#e3e3e3"><path d="M9,18q-0.82,0-1.41-0.59T7,16V4Q7,3.17 7.59,2.59T9,2h9q0.82,0 1.41,0.59T20,4V16q0,0.82-0.59,1.41T18,18H9Zm0-2h9V4H9V16ZM5,22q-0.83,0-1.41-0.59T3,20V6H5V20H16v2H5Zm4-6V4V16Z"/></svg>
+      {{form.shortned_url.label}}
+    </label>
+    {{form.shortned_url}} {% if form.shortned_url.errors %}
+    <p class="mt-1 text-red-500">{{ form.shortned_url.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <button type="submit" class="btn btn-active btn-success">Salvar alterações</button>
 </form>
-{% endblock content%}
+{% endblock %}

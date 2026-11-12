@@ -1,6 +1,36 @@
 {% extends "shortner/base.html" %} {% block content %}
-    <form action="{% url 'create_url' %}" method="POST">
-      {% csrf_token %} {{form.as_p}}
-      <button type="submit">Criar</button>
-    </form>
+<form action="{% url 'create_url' %}" class="card-1" method="POST">
+  {% csrf_token %} {% if form.non_field_errors %}
+  <div class="error-message">{{ form.non_field_errors.0 }}</div>
+  {% endif %}
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.name.id_for_label }}" class="text-sm">
+      {{form.name.label}}
+    </label>
+    {{form.name}} {% if form.name.errors %}
+    <p class="mt-1 text-red-500">{{ form.name.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.original_url.id_for_label }}" class="text-sm">
+      {{form.original_url.label}}
+    </label>
+    {{form.original_url}} {% if form.original_url.errors %}
+    <p class="mt-1 text-red-500">{{ form.original_url.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.shortned_url.id_for_label }}" class="text-sm">
+      {{form.shortned_url.label}}
+    </label>
+    {{form.shortned_url}} {% if form.shortned_url.errors %}
+    <p class="mt-1 text-red-500">{{ form.shortned_url.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <button type="submit" class="btn btn-active btn-success">Criar</button>
+</form>
 {% endblock %}

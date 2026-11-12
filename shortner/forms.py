@@ -11,3 +11,8 @@ class UrlForm(forms.ModelForm):
                 'unique':'Essa abreviação já foi utilizada.'
             }
         }
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'text-input'}),
+            'original_url':forms.TextInput(attrs={'class':'text-input'}),
+            'shortned_url':forms.TextInput(attrs={'class':'text-input'}),
+        }

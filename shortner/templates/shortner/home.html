@@ -1,29 +1,81 @@
-{% extends "shortner/base.html" %} 
-
-{% block content %} 
-
-{% if urls %}
+{% extends "shortner/base.html" %} {% block content %} {% if urls %}
 <div class="flex flex-wrap justify-center gap-4">
-{% for url in urls %}
+  {% for url in urls %}
   <section class="card-1">
     <div>
       <h2 class="text-xl font-bold">{{url.name}}</h2>
       <p class="text-gray-500">{{url.original_url}}</p>
     </div>
-    
-    <a href="{% url 'acess_url' url.shortned_url %}" class="link link-primary">{{ request.build_absolute_uri }}acess_url/{{url.shortned_url}}</p>
+
+    <div class="flex gap-1">
+      <a href="{% url 'acess_url' url.shortned_url %}" class="link link-primary"
+        >{{ request.scheme }}://{{ request.get_host }}{% url 'acess_url'
+        url.shortned_url %}</a
+      >
+      <button
+        type="button"
+        class="btn-copiar"
+        title="Copiar link"
+        data-url="{{ request.scheme }}://{{ request.get_host }}{% url 'acess_url' url.shortned_url %}"
+        onclick="copiarUrl(this)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          height="16px"
+          width="16px"
+          fill="#e3e3e3"
+        >
+          <path
+            d="M9,18q-0.82,0-1.41-0.59T7,16V4Q7,3.17 7.59,2.59T9,2h9q0.82,0 1.41,0.59T20,4V16q0,0.82-0.59,1.41T18,18H9Zm0-2h9V4H9V16ZM5,22q-0.83,0-1.41-0.59T3,20V6H5V20H16v2H5Zm4-6V4V16Z"
+          />
+        </svg>
+      </button>
+    </div>
+
     <div class="w-full flex gap-1">
-      <a href="{% url 'edit_url' url.shortned_url %}" class="btn btn-active btn-info flex-1">Editar</a>
-      <a href="{% url 'delete_url' url.shortned_url %}" class="btn btn-active btn-error flex-1">Apagar</a>
+      <a
+        href="{% url 'edit_url' url.shortned_url %}"
+        class="btn btn-active btn-info flex-1"
+        >Editar</a
+      >
+      <a
+        href="{% url 'delete_url' url.shortned_url %}"
+        class="btn btn-active btn-error flex-1"
+        >Apagar</a
+      >
     </div>
   </section>
-{% endfor %} 
+  {% endfor %}
 </div>
 {% else %}
-  <section class="flex flex-col">
-    <h2 class="font-bold text-center">Nenhuma URL adicionada</h2>
-    <a href="{% url 'create_url' %}" class="text-center link link-primary">Encurtar primeira URL</a>
-  </section>
+<section class="flex flex-col">
+  <h2 class="font-bold text-center">Nenhuma URL adicionada</h2>
+  <a href="{% url 'create_url' %}" class="text-center link link-primary"
+    >Encurtar primeira URL</a
+  >
+</section>
 {% endif%}
 
+<script>
+  function copiarUrl(btn) {
+    const url = btn.getAttribute("data-url");
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        const originalSvg = btn.innerHTML;
+        btn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="16px" width="16px" fill="#4ade80">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        </svg>
+      `;
+        setTimeout(() => {
+          btn.innerHTML = originalSvg;
+        }, 1500);
+      })
+      .catch((err) => {
+        console.error("Erro ao copiar URL:", err);
+      });
+  }
+</script>
 {% endblock content %}
